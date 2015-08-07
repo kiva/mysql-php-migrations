@@ -58,7 +58,7 @@ class MpmDbHelper
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		);
         $db_config = $GLOBALS['db_config'];
-        if ($db_config->pdo_dsn) {
+        if (property_exists($db_config, 'pdo_dsn')) {
             return new PDO($db_config->pdo_dsn, null, null, $pdo_settings);
         } else {
             $pdo_settings[PDO::MYSQL_ATTR_USE_BUFFERED_QUERY] = true;
