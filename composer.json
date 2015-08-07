@@ -1,0 +1,12 @@
+{
+  "name": "davesloan/mysql-php-migrations",
+  "description": "Command line utility for managing MySQL database migrations",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Author's name",
+      "email": "email@example.com"
+    }
+  ]
+}
