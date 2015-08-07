@@ -46,7 +46,7 @@ class MpmInitController extends MpmController
 		$clw->writeHeader();
 		echo "Defaults are in brackets ([]).  To accept the default, simply press ENTER.\n\n";
 
-		if (file_exists(MPM_PATH . '/config/db_config.php'))
+		if (file_exists(MPM_PATH . '/config/db_config.php') || !empty($GLOBALS['db_config']))
 		{
 			echo "\nWARNING:  IF YOU CONTINUE, YOUR EXISTING MIGRATION SETUP WILL BE ERASED!";
 			echo "\nThis will not affect your existing migrations or database, but \ncould cause your future migrations to fail.";
