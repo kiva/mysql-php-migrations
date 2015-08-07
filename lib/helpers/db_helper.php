@@ -58,8 +58,8 @@ class MpmDbHelper
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		);
         $db_config = $GLOBALS['db_config'];
-        if (property_exists($db_config, 'pdo_dsn')) {
-            return new PDO("odbc:{$db_config->pdo_dsn}", null, null, $pdo_settings);
+        if (property_exists($db_config, 'odbc_dsn')) {
+            return new PDO("odbc:{$db_config->odbc_dsn}", $db_config->odbc_user, $db_config->odbc_password, $pdo_settings);
         } else {
             $pdo_settings[PDO::MYSQL_ATTR_USE_BUFFERED_QUERY] = true;
             return new PDO("mysql:host={$db_config->host};port={$db_config->port};dbname={$db_config->name}", $db_config->user, $db_config->pass, $pdo_settings);
