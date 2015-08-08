@@ -281,7 +281,7 @@ class MpmInitController extends MpmController
 		fclose($fp);
 
 		require(MPM_PATH . '/config/db_config.php');
-		$GLOBALS['db_config'] = $db_config;
+		if (empty($GLOBALS['db_config'])) { $GLOBALS['db_config'] = $db_config; }
 
 		echo "\nConfiguration saved... looking for existing migrations table... ";
 
