@@ -295,7 +295,7 @@ class MpmInitController extends MpmController
 			{
 				echo "not found.\n";
 				echo "Creating migrations table... ";
-				$sql1 = "CREATE TABLE IF NOT EXISTS {$migrations_table} ( id INT(11) NOT NULL AUTO_INCREMENT, timestamp DATETIME NOT NULL, active TINYINT(1) NOT NULL DEFAULT 0, is_current TINYINT(1) NOT NULL DEFAULT 0, PRIMARY KEY ( id ) )";
+				$sql1 = "CREATE TABLE IF NOT EXISTS {$migrations_table} ( id AUTO_INCREMENT NOT NULL, timestamp DATETIME NOT NULL, active TINYINT NOT NULL DEFAULT 0, is_current TINYINT NOT NULL DEFAULT 0, PRIMARY KEY ( id ) )";
 				$sql2 = "CREATE UNIQUE INDEX TIMESTAMP_INDEX ON {$migrations_table} ( timestamp )";
 
 				if (MpmDbHelper::getMethod() == MPM_METHOD_PDO)
