@@ -62,7 +62,7 @@ class MpmInitController extends MpmController
 			}
 			else
 			{
-			    require(MPM_PATH . '/config/db_config.php');
+				if (file_exists(MPM_PATH . '/config/db_config.php')) { require(MPM_PATH . '/config/db_config.php'); }
 			}
 		}
 
@@ -281,7 +281,11 @@ class MpmInitController extends MpmController
 		fclose($fp);
 
 		require(MPM_PATH . '/config/db_config.php');
-		if (empty($GLOBALS['db_config'])) { $GLOBALS['db_config'] = $db_config; }
+		if (empty($GLOBALS['db_config'])) {
+			$GLOBALS['db_config'] = $db_config;
+		} else {
+			echo "\nSaved new file, but still using what's in \$GLOBALS";
+		}
 
 		echo "\nConfiguration saved... looking for existing migrations table... ";
 
