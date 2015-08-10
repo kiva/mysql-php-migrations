@@ -432,7 +432,7 @@ class MpmMigrationHelper
 	{
     	$db_config = $GLOBALS['db_config'];
     	$migrations_table = $db_config->migrations_table;
-		$sql = "SELECT id FROM {$migrations_table} ORDER BY timestamp DESC LIMIT 0,1";
+		$sql = "SELECT id FROM {$migrations_table} ORDER BY timestamp DESC LIMIT 1";
 	    try
 	    {
 	        switch(MpmDbHelper::getMethod())

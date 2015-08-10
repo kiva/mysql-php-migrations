@@ -51,7 +51,7 @@ class MpmListHelper
         $sql = "SELECT * FROM {$migrations_table} ORDER BY timestamp";
         if ($total > 0)
         {
-            $sql .= " LIMIT $startIdx,$total";
+            $sql .= " LIMIT $total OFFSET $startIdx";
         }
         $list = MpmDbHelper::doMultiRowSelect($sql);
         return $list;
