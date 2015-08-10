@@ -28,7 +28,7 @@ class MpmListHelper
     {
     	$db_config = $GLOBALS['db_config'];
     	$migrations_table = $db_config->migrations_table;
-    	$sql = "SELECT COUNT(*) AS total FROM `{$migrations_table}`";
+        $sql = "SELECT COUNT(*) AS total FROM {$migrations_table}";
         $obj = MpmDbHelper::doSingleRowSelect($sql);
         return $obj->total;
     }
@@ -48,7 +48,7 @@ class MpmListHelper
     	$db_config = $GLOBALS['db_config'];
     	$migrations_table = $db_config->migrations_table;
     	$list = array();
-        $sql = "SELECT * FROM `{$migrations_table}` ORDER BY `timestamp`";
+        $sql = "SELECT * FROM {$migrations_table} ORDER BY timestamp";
         if ($total > 0)
         {
             $sql .= " LIMIT $startIdx,$total";
@@ -89,7 +89,7 @@ class MpmListHelper
                 {
                     foreach ($files as $file)
                     {
-                        $sql = "INSERT IGNORE INTO `{$migrations_table}` ( `timestamp`, `active`, `is_current` ) VALUES ( '{$file->timestamp}', 0, 0 )";
+                        $sql = "INSERT IGNORE INTO {$migrations_table} ( timestamp, active, is_current ) VALUES ( '{$file->timestamp}', 0, 0 )";
                         $pdo->exec($sql);
                     }
                 }
@@ -111,7 +111,7 @@ class MpmListHelper
                     {
                         if (!in_array($obj->timestamp, $file_timestamps) && $obj->active == 0)
                         {
-                            $sql = "DELETE FROM `{$migrations_table}` WHERE `id` = '{$obj->id}'";
+                            $sql = "DELETE FROM {$migrations_table} WHERE id = '{$obj->id}'";
                             $pdo->exec($sql);
                         }
                     }
@@ -135,7 +135,7 @@ class MpmListHelper
             {
                 try
                 {
-                    $stmt = $mysqli->prepare('INSERT IGNORE INTO `'.$migrations_table.'` ( `timestamp`, `active`, `is_current` ) VALUES ( ?, 0, 0 )');
+                    $stmt = $mysqli->prepare('INSERT IGNORE INTO '.$migrations_table.' ( timestamp, active, is_current ) VALUES ( ?, 0, 0 )');
                     foreach ($files as $file)
                     {
                         $stmt->bind_param('s', $file->timestamp);
@@ -159,7 +159,7 @@ class MpmListHelper
             {
                 try
                 {
-                    $stmt = $mysqli->prepare('DELETE FROM `'.$migrations_table.'` WHERE `id` = ?');
+                    $stmt = $mysqli->prepare('DELETE FROM '.$migrations_table.' WHERE id = ?');
                     foreach ($db_list as $obj)
                     {
                         if (!in_array($obj->timestamp, $file_timestamps) && $obj->active == 0)
@@ -278,13 +278,13 @@ class MpmListHelper
     	$migrations_table = $db_config->migrations_table;
 		if ($direction == 'down')
 		{
-			$sql = "SELECT * FROM `{$migrations_table}` WHERE `timestamp` <= '$latestTimestamp' AND `active` = 1";
-			$countSql = "SELECT COUNT(*) as total FROM `{$migrations_table}` WHERE `timestamp` <= '$latestTimestamp' AND `active` = 1";
+			$sql = "SELECT * FROM {$migrations_table} WHERE timestamp <= '$latestTimestamp' AND active = 1";
+			$countSql = "SELECT COUNT(*) as total FROM {$migrations_table} WHERE timestamp <= '$latestTimestamp' AND active = 1";
 		}
 		else
 		{
-			$sql = "SELECT * FROM `{$migrations_table}` WHERE `timestamp` >= '$latestTimestamp' AND `active` = 1";
-			$countSql = "SELECT COUNT(*) as total FROM `{$migrations_table}` WHERE `timestamp` >= '$latestTimestamp' AND `active` = 1";
+			$sql = "SELECT * FROM {$migrations_table} WHERE timestamp >= '$latestTimestamp' AND active = 1";
+			$countSql = "SELECT COUNT(*) as total FROM {$migrations_table} WHERE timestamp >= '$latestTimestamp' AND active = 1";
 		}
 		$list = array();
 		$countObj = MpmDbHelper::doSingleRowSelect($countSql);

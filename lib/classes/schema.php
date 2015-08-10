@@ -77,7 +77,7 @@ abstract class MpmSchema
 		        if ($table != $migrations_table)
 		        {
             		echo '        ', $table, "\n";
-		            $this->dbObj->exec('DROP TABLE IF EXISTS `' . $table . '`');
+		            $this->dbObj->exec('DROP TABLE IF EXISTS ' . $table . '');
                 }
 		    }
         	echo '  Re-enabling foreign key restrictions...';
@@ -105,19 +105,19 @@ abstract class MpmSchema
     	$db_config = $GLOBALS['db_config'];
     	$migrations_table = $db_config->migrations_table;
     	echo 'Clearing out existing migration data... ';
-        $this->dbObj->exec('TRUNCATE TABLE `' . $migrations_table . '`');
+        $this->dbObj->exec('TRUNCATE TABLE ' . $migrations_table . '');
 		echo 'done.', "\n\n", 'Rebuilding migration data... ';
         MpmListHelper::mergeFilesWithDb();
         echo 'done.', "\n";
         if ($this->initialMigrationTimestamp != null)
         {
             echo "\n", 'Updating initial migration timestamp to ', $this->initialMigrationTimestamp, '... ';
-            $result = MpmDbHelper::doSingleRowSelect('SELECT COUNT(*) AS total FROM `'.$migrations_table.'` WHERE `timestamp` = "'.$this->initialMigrationTimestamp.'"', $this->dbObj);
+            $result = MpmDbHelper::doSingleRowSelect('SELECT COUNT(*) AS total FROM '.$migrations_table.' WHERE timestamp = "'.$this->initialMigrationTimestamp.'"', $this->dbObj);
             if ($result->total == 1)
             {
-                $this->dbObj->exec('UPDATE `'.$migrations_table.'` SET `is_current` = 0');
-                $this->dbObj->exec('UPDATE `'.$migrations_table.'` SET `is_current` = 1 WHERE `timestamp` = "'.$this->initialMigrationTimestamp.'"');
-                $this->dbObj->exec('UPDATE `'.$migrations_table.'` SET `active` = 1 WHERE `timestamp` <= "'.$this->initialMigrationTimestamp.'"');
+                $this->dbObj->exec('UPDATE '.$migrations_table.' SET is_current = 0');
+                $this->dbObj->exec('UPDATE '.$migrations_table.' SET is_current = 1 WHERE timestamp = "'.$this->initialMigrationTimestamp.'"');
+                $this->dbObj->exec('UPDATE '.$migrations_table.' SET active = 1 WHERE timestamp <= "'.$this->initialMigrationTimestamp.'"');
             }
             echo 'done.', "\n";
         }

@@ -25,7 +25,7 @@ class MpmTestData extends MpmSchema
 		*
 		* EX:
 		*
-		* $this->dbObj->exec("INSERT INTO `testing` (id, username, password) VALUES (1, 'my_username', 'my_password')");
+		* $this->dbObj->exec("INSERT INTO testing (id, username, password) VALUES (1, 'my_username', 'my_password')");
 		*/
 	}
 
