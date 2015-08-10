@@ -121,7 +121,13 @@ class MpmDbHelper
             {
                 case MPM_METHOD_PDO:
                     $stmt = $db->query($sql);
+                    if ($stmt === false) {
+                        throw new Exception("Unknown error making this query, '$sql'");
+                    }
                     $obj = $stmt->fetch(PDO::FETCH_OBJ);
+                    if ($obj === false) {
+                        throw new Exception("Unknown error fetching an object");
+                    }
                     return $obj;
                 case MPM_METHOD_MYSQLI:
                     $stmt = $db->query($sql);
